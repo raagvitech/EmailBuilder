@@ -83,18 +83,18 @@
                             </div>
                         </lightning-card>
                     </div>
-                    <!-- Right: Email Body Editor with Drag & Drop -->
+                    <!-- Right: Rich Text Editor for Email Body -->
                     <div class="slds-col slds-size_2-of-3">
                         <lightning-card title="Email Body Editor">
                             <div class="slds-p-around_medium">
-                                <!-- Drop zone for drag and drop -->
+                                <!-- Drop zone for drag & drop -->
                                 <div class="drop-zone slds-box slds-m-bottom_medium"
                                      ondragover={handleDragOver}
                                      ondrop={handleDrop}
                                      style="min-height: 100px; border: 2px dashed #ccc;">
                                     <p>Drop fields here to insert merge fields into the email body</p>
                                 </div>
-                                <!-- Rich text editor for email body -->
+                                <!-- Rich text editor to display and edit email body content -->
                                 <lightning-input-rich-text
                                     label="Edit Email Body"
                                     value={emailBodyContent}
