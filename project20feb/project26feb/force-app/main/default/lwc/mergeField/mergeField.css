@@ -1,0 +1,8 @@
+.pointer{
+    cursor: pointer;
+}
+
+.badge-blue {
+    background-color: rgb(80, 80, 207);
+    color: white;
+}

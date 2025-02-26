@@ -1,0 +1,46 @@
+<template>
+    <lightning-card title="SObject">
+        <div class="slds-m-around_medium">
+            <lightning-layout pull-to-boundary="medium">
+                <lightning-layout-item flexibility="auto" padding="horizontal-medium" size="4">
+                    <lightning-combobox label="Select Object" value={optObject} placeholder="Select Object..."
+                        options={options} onchange={handleKeyChange}>
+                    </lightning-combobox>
+                </lightning-layout-item>
+                <template if:true={optObject}>
+                    <lightning-layout-item flexibility="grow" padding="around-small" size="6">
+                        <lightning-dual-listbox name="languages" label="Select Object Fields" value={objectFieldRecord}
+                            source-label="Available" selected-label="Selected" field-level-help="Select object fields"
+                            options={optionsField} onchange={handleFieldChange}
+                            class="selectLabel"></lightning-dual-listbox>
+                    </lightning-layout-item>
+                </template>
+                <!-- <lightning-combobox label="Select Fields" value={objectFieldRecord} placeholder="Select Field..."
+                        options={optionsField} onchange={handleFieldChange}>
+                    </lightning-combobox> -->
+            </lightning-layout>
+        </div>
+        <div class="slds-m-around_medium">
+            <template if:true={optObject}>
+                <template for:each={templateRecords} for:item="template">
+                    <lightning-badge class="pointer" key={template.Id} label={template.Name} data-id={template.Id}
+                        data-value={template.HtmlValue} data-subject={template.Subject} icon-name="standard:email"
+                        icon-position="end" onclick={handleTemplate}></lightning-badge>
+                </template>
+            </template>
+        </div>
+        <div class="slds-m-around_medium">
+            <template if:true={templateContent}>
+                <lightning-input class="subject" type="text" aria-label="Subject" data-id={templateId}
+                    value={templateSubject} data-subject={templateSubject}></lightning-input>
+                <lightning-input-rich-text class="body" data-id={templateId}
+                    value={templateContent} data-body={templateContent}></lightning-input-rich-text>
+            </template>
+        </div>
+        <div class="slds-m-around_medium">
+            <template if:true={templateContent}>
+                <lightning-button variant="brand" label="Save" onclick={handleSave}></lightning-button>
+            </template>
+        </div>
+    </lightning-card>
+</template>
