@@ -31,16 +31,22 @@
         </div>
         <div class="slds-m-around_medium">
             <template if:true={templateContent}>
-                <lightning-input class="subject" type="text" aria-label="Subject" data-id={templateId}
+                <lightning-input class="subject" type="text" aria-label="Subject" data-id={templateId} onchange={handleContent}
                     value={templateSubject} data-subject={templateSubject}></lightning-input>
-                <lightning-input-rich-text class="body" data-id={templateId}
-                    value={templateContent} data-body={templateContent}></lightning-input-rich-text>
+                <lightning-input-rich-text class="body" data-id={templateId} value={templateContent} onchange={handleContent}
+                    data-body={templateContent}></lightning-input-rich-text>
             </template>
         </div>
         <div class="slds-m-around_medium">
             <template if:true={templateContent}>
-                <lightning-button variant="brand" label="Save" onclick={handleSave}></lightning-button>
+                <lightning-button variant="brand" label="Preview" aria-haspopup="dialog"
+                    onclick={handleModal}></lightning-button>
+                <lightning-formatted-rich-text value={modalResult}
+                    data-body={modalResult}></lightning-formatted-rich-text>
             </template>
+            <!-- <lightning-formatted-text class="subject" type="text" aria-label="Subject" data-id={templateId}
+                    value={templateSubject} data-subject={templateSubject}></lightning-formatted-text> -->
+
         </div>
     </lightning-card>
 </template>

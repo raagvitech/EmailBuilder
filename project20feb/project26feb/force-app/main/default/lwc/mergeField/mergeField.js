@@ -3,6 +3,7 @@ import fetchAllObject from '@salesforce/apex/EmailTemplateController.fetchAllObj
 import fetchSobjectFields from '@salesforce/apex/EmailTemplateController.fetchSobjectFields';
 import getSobjectEmailTemplates from '@salesforce/apex/EmailTemplateController.getSobjectEmailTemplates';
 import updateEmailTemplate from '@salesforce/apex/EmailTemplateController.updateEmailTemplate';
+import customModal from 'c/customModal';
 
 
 
@@ -21,6 +22,8 @@ export default class MergeField extends LightningElement {
     @track templateContent;
     templateSubject;
     templateBody;
+    newHtmlValue
+    newSubject;
 
     @wire(fetchAllObject)
     wiredFetchObject({ data, error }) {
@@ -82,16 +85,19 @@ export default class MergeField extends LightningElement {
         });
     }
 
-    handleSave() {
-        const newSubject = this.template.querySelector('.subject').value;
-        const newBody = this.template.querySelector('.body').value;
+    handleContent() {
+        this.templateSubject = this.template.querySelector('.subject').value;
+        this.templateContent = this.template.querySelector('.body').value;
         console.log('templateId: ' + this.templateId);
         console.log('templateSubject: ' + JSON.stringify(newSubject));
         console.log('templateContent:' + JSON.stringify(newBody));
+    }
+
+    async handleModal() {
         updateEmailTemplate({
             templateId: this.templateId,
-            newBody: newBody,
-            newSubject: newSubject
+            newHtmlValue: this.templateContent,
+            newSubject: this.templateSubject
         })
             .then(result => {
                 console.log('result: ' + JSON.stringify(result));
@@ -100,6 +106,11 @@ export default class MergeField extends LightningElement {
             .catch(error => {
                 console.error('Error updating Email Template:', error);
             });
-
+        const modalResult = await customModal.open({
+            size: "medium",
+            description: "Display the Email Template",
+            content: this.templateContent,
+        })
+        console.log('modalRecord+++++++++++++' + modalResult);
     }
 }
