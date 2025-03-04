@@ -22,8 +22,6 @@ export default class MergeField extends LightningElement {
     @track templateContent;
     templateSubject;
     templateBody;
-    newHtmlValue
-    newSubject;
 
     @wire(fetchAllObject)
     wiredFetchObject({ data, error }) {
@@ -89,8 +87,6 @@ export default class MergeField extends LightningElement {
         this.templateSubject = this.template.querySelector('.subject').value;
         this.templateContent = this.template.querySelector('.body').value;
         console.log('templateId: ' + this.templateId);
-        console.log('templateSubject: ' + JSON.stringify(newSubject));
-        console.log('templateContent:' + JSON.stringify(newBody));
     }
 
     async handleModal() {
@@ -109,7 +105,7 @@ export default class MergeField extends LightningElement {
         const modalResult = await customModal.open({
             size: "medium",
             description: "Display the Email Template",
-            content: this.templateContent,
+            content: {templateContent: this.templateContent, templateSubject: this.templateSubject}
         })
         console.log('modalRecord+++++++++++++' + modalResult);
     }
